@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    volumes:
+      - ohs-data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - JWT_SECRET=change-me-in-production
+      - JWT_REFRESH_SECRET=change-me-in-production
+      - CORS_ORIGIN=http://localhost:80
+  frontend:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  ohs-data:
